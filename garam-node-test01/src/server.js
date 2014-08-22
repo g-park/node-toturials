@@ -13,20 +13,18 @@ function start(route, handle) {
 
   function onRequest(request, response) {
 
-    console.log("Request received.");
-
     var pathname = url.parse(request.url).pathname;
 
     console.log("Request for " + pathname + " received.");
 
-    route(handle, pathname);
+    route(handle, pathname, response);
 
-    //해더 설정
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    //바디부분을 설정
-    response.write("Hello World");
-    //끝내기
-    response.end();
+    // //해더 설정
+    // response.writeHead(200, {"Content-Type": "text/plain"});
+    // //바디부분을 설정
+    // response.write("Hello World");
+    // //끝내기
+    // response.end();
 
   }
 
