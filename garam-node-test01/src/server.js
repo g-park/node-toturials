@@ -12,8 +12,11 @@ var url = require("url");
 function start(route, handle) {
 
   function onRequest(request, response) {
+
     console.log("Request received.");
+
     var pathname = url.parse(request.url).pathname;
+
     console.log("Request for " + pathname + " received.");
 
     route(handle, pathname);
@@ -24,8 +27,6 @@ function start(route, handle) {
     response.write("Hello World");
     //끝내기
     response.end();
-
-    /*만약에 요청에 대한 자세한 사항이 있다면 request 객체를 사용할 수 있다*/
 
   }
 
