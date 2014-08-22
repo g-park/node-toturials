@@ -13,11 +13,23 @@ function start(route, handle) {
 
   function onRequest(request, response) {
 
+    var postData = "";
+
+    //받을 데이터의 인코딩을 UTF-8로 세팅
+    request.setEncoding("utf8");
     var pathname = url.parse(request.url).pathname;
 
     console.log("Request for " + pathname + " received.");
 
-    route(handle, pathname, response);
+    //새로운 POST 데이터 청크가 올 때마다 postData 변수에 차곡차곡 쌓는 역할을 하는 “data” 이벤트 listener를 추가
+    request.addListener("data", function(postDataChunk) {
+      postData += postDataChunk;
+      console.log("Received POST data chunk '"+ postDataChunk + "'.");
+    });
+
+    request.addListener("end", function() {
+      route(handle, pathname, response, postData);
+    });
 
     // //해더 설정
     // response.writeHead(200, {"Content-Type": "text/plain"});

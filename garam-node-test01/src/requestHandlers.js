@@ -1,6 +1,6 @@
-
+var querystring = require("querystring");
 //스타트 관련 url처리하는 곳인가?
-function start(response) {
+function start(response, postData) {
 
 
  console.log("Request handler 'start' was called.");
@@ -24,11 +24,11 @@ function start(response) {
 }
 
 //업로드 url처리하는 곳인가?
-function upload(response) {
+function upload(response, postData) {
 
   console.log("Request handler 'upload' was called.");
   response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Hello Upload");
+  response.write("You've sent: " +  querystring.parse(postData).text);
   response.end();
 }
 
