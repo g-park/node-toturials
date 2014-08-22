@@ -1,6 +1,7 @@
 
 //스타트 관련 url처리하는 곳인가?
-function start() {
+function start(response) {
+
 
  console.log("Request handler 'start' was called.");
 
@@ -23,7 +24,7 @@ function start() {
 }
 
 //업로드 url처리하는 곳인가?
-function upload() {
+function upload(response) {
 
   console.log("Request handler 'upload' was called.");
   response.writeHead(200, {"Content-Type": "text/plain"});
