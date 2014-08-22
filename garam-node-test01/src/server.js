@@ -11,32 +11,36 @@ var url = require("url");
 //스타트 함수를 만들어 외부에서 사용할 수 있도록 한다
 function start(route, handle) {
 
+  /* request <- 요청 , response <- 반환 */
   function onRequest(request, response) {
-
-    var postData = "";
 
     //받을 데이터의 인코딩을 UTF-8로 세팅
     request.setEncoding("utf8");
+
+    //post로 받은 데이터를 넣는 역할을 한다
+    var postData = "";
+
+    //url 모듈을 이용하여 reques에서 pathname을 추출함
     var pathname = url.parse(request.url).pathname;
 
     console.log("Request for " + pathname + " received.");
 
-    //새로운 POST 데이터 청크가 올 때마다 postData 변수에 차곡차곡 쌓는 역할을 하는 “data” 이벤트 listener를 추가
+    /*
+    새로운 POST 데이터 청크가 올 때마다 postData 변수에 차곡차곡 쌓는 역할을 하는 “data” 이벤트 listener를 추가
+    post는 크기가 한정되있는 요청이 아니기 때문에 청크(일정한 단위 크기)로 분할 되어 넘어온다
+    */
     request.addListener("data", function(postDataChunk) {
       postData += postDataChunk;
       console.log("Received POST data chunk '"+ postDataChunk + "'.");
     });
 
+    /*
+    post의 데이터 전송이 모두 끝나면 end 라는 함수를 호출 할 것이다
+    그렇기 때문에 route()함수를 호출한다
+    */
     request.addListener("end", function() {
       route(handle, pathname, response, postData);
     });
-
-    // //해더 설정
-    // response.writeHead(200, {"Content-Type": "text/plain"});
-    // //바디부분을 설정
-    // response.write("Hello World");
-    // //끝내기
-    // response.end();
 
   }
 
