@@ -12,5 +12,5 @@ function start() {
   http.createServer(onRequest).listen(8888);
   console.log("Server has started.");
 }
-
+//주석은 이렇게 다는 건가?
 exports.start = start;
