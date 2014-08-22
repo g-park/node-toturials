@@ -9,15 +9,15 @@ ex) var foo = require("http");
 var url = require("url");
 
 //스타트 함수를 만들어 외부에서 사용할 수 있도록 한다
-function start(route) {
+function start(route, handle) {
 
   function onRequest(request, response) {
     console.log("Request received.");
     var pathname = url.parse(request.url).pathname;
     console.log("Request for " + pathname + " received.");
 
-    route(pathname);
-    
+    route(handle, pathname);
+
     //해더 설정
     response.writeHead(200, {"Content-Type": "text/plain"});
     //바디부분을 설정
