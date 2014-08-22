@@ -1,4 +1,5 @@
-var querystring = require("querystring");
+var querystring = require("querystring"),
+    fs = require("fs");;
 //스타트 관련 url처리하는 곳인가?
 function start(response, postData) {
 
