@@ -3,6 +3,7 @@ var formidable = require('formidable'),
     sys = require('sys');
 
 http.createServer(function(req, res) {
+
   if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
     // parse a file upload
     var form = new formidable.IncomingForm();
@@ -24,5 +25,5 @@ http.createServer(function(req, res) {
     '<input type="submit" value="Upload">'+
     '</form>'
   );
-  
+
 }).listen(8888);
