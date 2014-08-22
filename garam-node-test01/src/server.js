@@ -1,12 +1,23 @@
 //http 관련 모듈을 http 객체에 담는다
-var http = require("http");
+var http = require("http");//처음부터 모듈을 사용하고 있다
+/*
+http 변수이기 때문에 어떤것으로 받더라도 상관없다.
+ex) var foo = require("http");
+*/
+
+//url 모듈은 URL의 각각의 부분 (예를들면 URL path와 query string) 을 뽑아낼 수 있는 메소드를 제공
+var url = require("url");
 
 //스타트 함수를 만들어 외부에서 사용할 수 있도록 한다
-function start() {
+function start(route) {
 
   function onRequest(request, response) {
     console.log("Request received.");
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
 
+    route(pathname);
+    
     //해더 설정
     response.writeHead(200, {"Content-Type": "text/plain"});
     //바디부분을 설정
