@@ -1,9 +1,9 @@
 var http = require("http");
 
 function onRequest(request, response) {
-  console.log("Request received.");
+  console.log("onRequest 함수 호출...");
   response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Hello World");
+  response.write("garam's node.js 프로젝트!");
   response.end();
 }
 
